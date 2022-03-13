@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ja\\Desktop\\Nowy folder (3)\\UrbanDuck\\UrbanDuck\\UrbanDuck.csproj": {}
+    "C:\\Users\\Bartte\\Source\\Repos\\Urban-Duck\\UrbanDuck\\UrbanDuck\\UrbanDuck.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ja\\Desktop\\Nowy folder (3)\\UrbanDuck\\UrbanDuck\\UrbanDuck.csproj": {
+    "C:\\Users\\Bartte\\Source\\Repos\\Urban-Duck\\UrbanDuck\\UrbanDuck\\UrbanDuck.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ja\\Desktop\\Nowy folder (3)\\UrbanDuck\\UrbanDuck\\UrbanDuck.csproj",
+        "projectUniqueName": "C:\\Users\\Bartte\\Source\\Repos\\Urban-Duck\\UrbanDuck\\UrbanDuck\\UrbanDuck.csproj",
         "projectName": "UrbanDuck",
-        "projectPath": "C:\\Users\\Ja\\Desktop\\Nowy folder (3)\\UrbanDuck\\UrbanDuck\\UrbanDuck.csproj",
-        "packagesPath": "C:\\Users\\Ja\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ja\\Desktop\\Nowy folder (3)\\UrbanDuck\\UrbanDuck\\obj\\",
+        "projectPath": "C:\\Users\\Bartte\\Source\\Repos\\Urban-Duck\\UrbanDuck\\UrbanDuck\\UrbanDuck.csproj",
+        "packagesPath": "C:\\Users\\Bartte\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Bartte\\Source\\Repos\\Urban-Duck\\UrbanDuck\\UrbanDuck\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "E:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Ja\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Bartte\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -39,6 +43,32 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.0-preview.1.22076.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.0-preview.1.22076.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[7.0.0-preview.1.22076.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.0-preview.1.22076.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.0-preview.1.22076.6, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -57,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

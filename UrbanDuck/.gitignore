@@ -397,5 +397,5 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-/UrbanDuck/UrbanDuck/bin/Debug
-/UrbanDuck/UrbanDuck/obj/Debug
+UrbanDuck/bin/Debug
+UrbanDuck/obj/Debug

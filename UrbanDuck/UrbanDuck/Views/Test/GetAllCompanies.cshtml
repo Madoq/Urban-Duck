@@ -1,0 +1,11 @@
+﻿@model IEnumerable<Company>
+@{
+    @foreach(var company in Model)
+    {
+        <h1>@company.Id</h1>
+        <h1>@company.CompanyName</h1>
+        <h1>@company.NipCode</h1>
+        <a asp-controller="Test" asp-action="DeleteCompany" asp-route-id="@company.Id">Delete</a>
+        <hr>
+    };
+}

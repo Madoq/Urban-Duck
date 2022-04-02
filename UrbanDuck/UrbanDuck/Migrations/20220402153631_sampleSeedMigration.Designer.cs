@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UrbanDuck.Data;
 
@@ -11,9 +12,10 @@ using UrbanDuck.Data;
 namespace UrbanDuck.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220402153631_sampleSeedMigration")]
+    partial class sampleSeedMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,18 +103,6 @@ namespace UrbanDuck.Migrations
                             Id = 1,
                             CompanyName = "Company 1",
                             NipCode = 10
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CompanyName = "Company 2",
-                            NipCode = 20
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CompanyName = "Company 3",
-                            NipCode = 30
                         });
                 });
 

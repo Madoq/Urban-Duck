@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using UrbanDuck.Data;
-
-
-
+using UrbanDuck.Interfaces;
+using UrbanDuck.Repositories;
+using UrbanDuck.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 //var connectionString = builder.Configuration.GetConnectionString("localdb");
@@ -13,6 +13,9 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("UrbanDuckDbConnection")));
 
+builder.Services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+
+builder.Services.AddScoped(typeof(ICompanyService), typeof(CompanyService));
 
 
 var app = builder.Build();

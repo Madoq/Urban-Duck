@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using UrbanDuck.Interfaces;
 using UrbanDuck.Models;
 
 namespace UrbanDuck.Controllers

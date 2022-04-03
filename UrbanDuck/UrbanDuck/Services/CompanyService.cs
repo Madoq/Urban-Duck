@@ -31,5 +31,10 @@ namespace UrbanDuck.Services
             var CompanyToDelete = await GetCompany(id);
             if (CompanyToDelete != null) await _companyRepository.Delete(CompanyToDelete);
         }
+
+        public async Task EditCompany(Company company)
+        {
+            await _companyRepository.Edit(company);
+        }
     }
 }

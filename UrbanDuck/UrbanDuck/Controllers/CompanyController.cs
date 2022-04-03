@@ -4,10 +4,10 @@ using UrbanDuck.Models;
 
 namespace UrbanDuck.Controllers
 {
-    public class TestController : Controller
+    public class CompanyController : Controller
     {
         private readonly ICompanyService _companyService;
-        public TestController(ICompanyService companyService)
+        public CompanyController(ICompanyService companyService)
         {
             _companyService = companyService;
         }
@@ -37,11 +37,24 @@ namespace UrbanDuck.Controllers
             return RedirectToAction("GetCompanyById", new { id = newCompany.Id });
         }
 
-        [Route("DeleteCompany")]
+        [HttpPost("DeleteCompany")]
         public async Task<IActionResult> DeleteCompany(int id)
         {
             await _companyService.DeleteCompany(id);
             return RedirectToAction("GetAllCompanies");
+        }
+
+        [HttpGet("EditCompany")]
+        public async Task<IActionResult> EditCompany(int id)
+        {
+            return View(await _companyService.GetCompany(id));
+        }
+
+        [HttpPost("EditCompany")]
+        public async Task<IActionResult> EditCompany(Company editedCompany)
+        {
+            await _companyService.EditCompany(editedCompany);
+            return RedirectToAction("GetCompanyById", new { id = editedCompany.Id });
         }
     }
 }

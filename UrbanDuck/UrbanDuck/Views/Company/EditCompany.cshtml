@@ -1,0 +1,17 @@
+﻿@model Company
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    <form asp-controller="Company" asp-action="EditCompany" method="post">
+    <div>
+    <input hidden asp-for="Id"/>
+    <label asp-for="CompanyName"></label>
+    <input asp-for="CompanyName">
+    </div>
+    <div>
+    <label asp-for="NipCode"></label>
+    <input asp-for="NipCode">
+    </div>
+    <button type="submit">Create</button>
+    </form>
+
+}

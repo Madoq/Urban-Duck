@@ -8,5 +8,6 @@ namespace UrbanDuck.Interfaces
         public Task<IEnumerable<Company>> GetAllCompanies();
         public Task<Company> CreateCompany(Company company);
         public Task DeleteCompany(int id);
+        public Task EditCompany(Company company);
     }
 }

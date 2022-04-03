@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using UrbanDuck.Interfaces;
 
 namespace UrbanDuck.Models
 {
-    public class ListingTags
+    public class ListingTags // : IDbModel
     {
         [Key]
         [ForeignKey("Listing")]

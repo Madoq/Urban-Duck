@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using UrbanDuck.Interfaces;
 using UrbanDuck.Models;
+using UrbanDuck.Services;
 
 namespace UrbanDuck.Controllers
 {
@@ -12,49 +13,49 @@ namespace UrbanDuck.Controllers
             _companyService = companyService;
         }
 
-        [HttpGet("Company")]
-        public async Task<IActionResult> GetAllCompanies()
+        [HttpGet]
+        public async Task<IActionResult> All()
         {
-            return View(await _companyService.GetAllCompanies());
+            return View(await _companyService.GetAll());
         }
 
-        [HttpGet("Company/{id}")]
-        public async Task<IActionResult> GetCompanyById(int id)
+        [HttpGet("Company/{id:int}")]
+        public async Task<IActionResult> GetById(int id)
         {
-            return View(await _companyService.GetCompany(id));
+            return View(await _companyService.GetById(id));
         }
 
-        [HttpGet("CreateCompany")]
-        public async Task<IActionResult> CreateCompany()
+        [HttpGet]
+        public async Task<IActionResult> Create()
         {
             return View();
         }
 
-        [HttpPost("CreateCompany")]
-        public async Task<IActionResult> CreateCompany(Company newCompany)
+        [HttpPost]
+        public async Task<IActionResult> Create(Company model)
         {
-            await _companyService.CreateCompany(newCompany);
-            return RedirectToAction("GetCompanyById", new { id = newCompany.Id });
+            await _companyService.Create(model);
+            return RedirectToAction("GetById", new { id = model.Id });
         }
 
-        [HttpPost("DeleteCompany")]
-        public async Task<IActionResult> DeleteCompany(int id)
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
         {
-            await _companyService.DeleteCompany(id);
-            return RedirectToAction("GetAllCompanies");
+            await _companyService.Delete(id);
+            return RedirectToAction("All");
         }
 
-        [HttpGet("EditCompany")]
-        public async Task<IActionResult> EditCompany(int id)
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
         {
-            return View(await _companyService.GetCompany(id));
+            return View(await _companyService.GetById(id));
         }
 
-        [HttpPost("EditCompany")]
-        public async Task<IActionResult> EditCompany(Company editedCompany)
+        [HttpPost]
+        public async Task<IActionResult> Edit(Company model)
         {
-            await _companyService.EditCompany(editedCompany);
-            return RedirectToAction("GetCompanyById", new { id = editedCompany.Id });
+            await _companyService.Edit(model);
+            return RedirectToAction("All", new { id = model.Id });
         }
     }
 }

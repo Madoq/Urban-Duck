@@ -1,0 +1,17 @@
+﻿@model Company
+@{
+    int testval = Model.Id;
+    <h1>@Model.Id</h1>
+    <h1>@Model.CompanyName</h1>
+    <h1>@Model.NipCode</h1>
+    @foreach(Address address in Model.Addresses)
+    {
+        <hr />
+        <b>@address.City</b>
+        <b>@address.StreetName</b>
+        <a asp-controller="Address" asp-action="Edit" asp-route-companyId="@Model.Id">Edit</a>
+        <a asp-controller="Address" asp-action="Delete" asp-route-id="@address.Id">Delete</a>
+    }
+    <a asp-controller="Address" asp-action="Create" asp-route-companyId="@testval">Add Address</a>
+    <a asp-controller="Company" asp-action="All">List All Companies</a>
+}

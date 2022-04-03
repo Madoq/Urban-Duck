@@ -2,12 +2,7 @@
 
 namespace UrbanDuck.Interfaces
 {
-    public interface ICompanyService
+    public interface ICompanyService : IBaseService<Company>
     {
-        public Task<Company> GetCompany(int id);
-        public Task<IEnumerable<Company>> GetAllCompanies();
-        public Task<Company> CreateCompany(Company company);
-        public Task DeleteCompany(int id);
-        public Task EditCompany(Company company);
     }
 }

@@ -1,40 +1,45 @@
-﻿using UrbanDuck.Interfaces;
+﻿using System.Linq.Expressions;
+using UrbanDuck.Interfaces;
 using UrbanDuck.Models;
+using UrbanDuck.Repositories;
 
 namespace UrbanDuck.Services
 {
     public class CompanyService : ICompanyService
     {
-        private readonly IBaseRepository<Company> _companyRepository;
-
-        public CompanyService(IBaseRepository<Company> companyRepository)
+        private readonly ICompanyRepository _companyRepository;
+        public CompanyService(ICompanyRepository companyRepository)
         {
             _companyRepository = companyRepository;
         }
 
-        public async Task<Company> GetCompany(int id)
+        public async Task<Company> GetById(int id)
         {
-            return (await _companyRepository.FindByConditions(x => x.Id == id)).FirstOrDefault();
+            return await _companyRepository.GetCompanyWithAddresses(id);
+        }
+        public async Task<IEnumerable<Company>> GetByConditions(Expression<Func<Company, bool>> expresion)
+        {
+            return await _companyRepository.FindByConditions(expresion);
         }
 
-        public async Task<IEnumerable<Company>> GetAllCompanies()
+        public async Task<IEnumerable<Company>> GetAll()
         {
             return await _companyRepository.FindAll();
         }
 
-        public async Task<Company> CreateCompany(Company company)
+        public async Task<Company> Create(Company model)
         {
-            return await _companyRepository.Create(company);
+            return await _companyRepository.Create(model);
         }
-        public async Task DeleteCompany(int id)
+        public async Task Delete(int id)
         {
-            var CompanyToDelete = await GetCompany(id);
-            if (CompanyToDelete != null) await _companyRepository.Delete(CompanyToDelete);
+            var model = await GetById(id);
+            if (model != null) await _companyRepository.Delete(model);
         }
 
-        public async Task EditCompany(Company company)
+        public async Task Edit(Company model)
         {
-            await _companyRepository.Edit(company);
+            await _companyRepository.Edit(model);
         }
     }
 }

@@ -15,6 +15,9 @@ builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(b
 
 builder.Services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 
+builder.Services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
+
+builder.Services.AddScoped(typeof(ICompanyRepository), typeof(CompanyRepository));
 builder.Services.AddScoped(typeof(ICompanyService), typeof(CompanyService));
 
 

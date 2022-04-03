@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using UrbanDuck.Interfaces;
 
 namespace UrbanDuck.Models
 {
-    public class Contributor
+    public class Contributor : IDbModel
     {
         [Key]
         public int Id { get; set; }

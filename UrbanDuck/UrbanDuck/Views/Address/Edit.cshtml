@@ -1,0 +1,17 @@
+﻿@model Address
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    <form asp-controller="Address" asp-action="Edit" method="post">
+    <input hidden asp-for="Id"/>
+    <div>
+    <label asp-for="City"></label>
+    <input asp-for="City">
+    </div>
+    <div>
+    <label asp-for="StreetName"></label>
+    <input asp-for="StreetName">
+    </div>
+    <button type="submit">Create</button>
+    </form>
+
+}

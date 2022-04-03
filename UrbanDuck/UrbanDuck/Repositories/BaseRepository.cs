@@ -5,7 +5,7 @@ using UrbanDuck.Interfaces;
 
 namespace UrbanDuck.Repositories
 {
-    public class BaseRepository<T> : IBaseRepository<T> where T : class
+    public class BaseRepository<T> : IBaseRepository<T> where T : class 
     {
         protected readonly DatabaseContext _context;
         public BaseRepository(DatabaseContext context)

@@ -1,0 +1,8 @@
+﻿@model Company
+@{
+    <h1>@Model.Id</h1>
+    <h1>@Model.CompanyName</h1>
+    <h1>@Model.NipCode</h1>
+    <a asp-controller="Address" asp-action="Create">Add Address</a>
+    <a asp-controller="Company" asp-action="All">List All Companies</a>
+}

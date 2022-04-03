@@ -1,3 +1,5 @@
+using UrbanDuck.Interfaces;
+
 namespace UrbanDuck.Models
 {
     public class ErrorViewModel

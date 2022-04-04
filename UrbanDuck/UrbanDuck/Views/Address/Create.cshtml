@@ -3,6 +3,7 @@
 @{
     <form asp-controller="Address" asp-action="Create" method="post">
     <input hidden asp-for="CompanyId" value=@ViewBag.CompanyId>
+    <input hidden asp-for="Id" value=0>
     <div>
     <label asp-for="City"></label>
     <input asp-for="City">

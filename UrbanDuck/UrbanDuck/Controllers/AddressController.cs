@@ -41,14 +41,25 @@ namespace UrbanDuck.Controllers
         public async Task<IActionResult> Create(Address model)
         {
             await _addressService.Create(model);
-            return RedirectToRoute("Company", new { id = model.CompanyId });
+            return RedirectToRoute(new
+            {
+                controller = "Company",
+                action = "GetById",
+                id = model.CompanyId
+            });
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
+            var model = await _addressService.GetById(id);
             await _addressService.Delete(id);
-            return RedirectToAction("All");
+            return RedirectToRoute(new
+            {
+                controller = "Company",
+                action = "GetById",
+                id = model.CompanyId
+            });
         }
 
         [HttpGet]
@@ -61,7 +72,12 @@ namespace UrbanDuck.Controllers
         public async Task<IActionResult> Edit(Address model)
         {
             await _addressService.Edit(model);
-            return RedirectToAction("All", new { id = model.Id });
+            return RedirectToRoute(new
+            {
+                controller = "Company",
+                action = "GetById",
+                id = model.CompanyId
+            });
         }
     }
 }

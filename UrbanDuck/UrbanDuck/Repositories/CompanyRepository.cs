@@ -11,7 +11,7 @@ namespace UrbanDuck.Repositories
 
         public async Task<Company> GetCompanyWithAddresses(int companyId)
         {
-            return await _context.Companies.Where(x => x.Id == companyId).Include(x => x.Addresses).FirstOrDefaultAsync();
+            return await _context.Companies.Where(x => x.Id == companyId).Include(x => x.Addresses).Include(x => x.Contributors).FirstOrDefaultAsync();
         }
     }
 }

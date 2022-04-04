@@ -20,6 +20,8 @@ builder.Services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
 builder.Services.AddScoped(typeof(ICompanyRepository), typeof(CompanyRepository));
 builder.Services.AddScoped(typeof(ICompanyService), typeof(CompanyService));
 
+builder.Services.AddScoped(typeof(IContributorRepository), typeof(ContributorRepository));
+builder.Services.AddScoped(typeof(IContributorService), typeof(ContributorService));
 
 var app = builder.Build();
 

@@ -19,10 +19,10 @@ namespace UrbanDuck.Models
         public string? LastName { get; set; }
 
         [ForeignKey("Company")]
-        public int CompanyId { get; set; }
+        public int? CompanyId { get; set; }
 
         public virtual ICollection<Listing> Listings { get; set; }
 
-        public virtual Company Company { get; set; }
+        public virtual Company? Company { get; set; }
     }
 }

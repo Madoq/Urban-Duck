@@ -20,11 +20,17 @@ namespace UrbanDuck.Data
             optionsBuilder.UseSqlServer(connectionString);
         }
 
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<Contributor> Contributors { get; set; }
         public DbSet<Listing> Listings { get; set; }
+        public DbSet<ListingTags> ListingTagsDb { get; set; }
+        public DbSet<Photo> Photos { get; set; }
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
-            
+
         //}
     }
 }

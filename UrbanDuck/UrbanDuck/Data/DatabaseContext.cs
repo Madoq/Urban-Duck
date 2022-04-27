@@ -30,11 +30,11 @@ namespace UrbanDuck.Data
         public DbSet<ListingTags> ListingTagsDb { get; set; }
         public DbSet<Photo> Photos { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Company>().HasData(new Company { Id = 1, CompanyName = "Company 1", NipCode = 10});
-            modelBuilder.Entity<Company>().HasData(new Company { Id = 2, CompanyName = "Company 2", NipCode = 20 });
-            modelBuilder.Entity<Company>().HasData(new Company { Id = 3, CompanyName = "Company 3", NipCode = 30 });
-        }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Company>().HasData(new Company { Id = 1, CompanyName = "Company 1", NipCode = 10});
+        //    modelBuilder.Entity<Company>().HasData(new Company { Id = 2, CompanyName = "Company 2", NipCode = 20 });
+        //    modelBuilder.Entity<Company>().HasData(new Company { Id = 3, CompanyName = "Company 3", NipCode = 30 });
+        //}
     }
 }

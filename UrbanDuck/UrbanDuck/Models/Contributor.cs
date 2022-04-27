@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using UrbanDuck.Interfaces;
 
@@ -9,8 +10,8 @@ namespace UrbanDuck.Models
         [Key]
         public int Id { get; set; }
 
-        //[ForeignKey("User")]
-        //public int UserId { get; set; }
+        [ForeignKey("AspNetUsers")]
+        public string UserId { get; set; }
 
         [StringLength(30)]
         public string? FirstName { get; set; }
@@ -24,5 +25,8 @@ namespace UrbanDuck.Models
         public virtual ICollection<Listing> Listings { get; set; }
 
         public virtual Company? Company { get; set; }
+
+        //public virtual IdentityUser? User { get; set; }
+
     }
 }

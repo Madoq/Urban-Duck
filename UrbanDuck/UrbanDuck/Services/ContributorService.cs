@@ -17,6 +17,12 @@ namespace UrbanDuck.Services
         {
             return await _contributorRepository.GetContributorWithListings(id);
         }
+
+        public async Task<Contributor> GetByUserId(string id)
+        {
+            return (await GetByConditions(c => c.UserId == id)).FirstOrDefault();
+        }
+
         public async Task<IEnumerable<Contributor>> GetByConditions(Expression<Func<Contributor, bool>> expresion)
         {
             return await _contributorRepository.FindByConditions(expresion);

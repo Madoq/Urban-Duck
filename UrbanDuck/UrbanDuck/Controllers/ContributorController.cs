@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using UrbanDuck.Interfaces;
 using UrbanDuck.Models;
 using UrbanDuck.Services;
@@ -8,9 +9,11 @@ namespace UrbanDuck.Controllers
     public class ContributorController : Controller
     {
         private readonly IContributorService _contributorService;
-        public ContributorController(IContributorService contributorService)
+        UserManager<IdentityUser> userManager;
+        public ContributorController(IContributorService contributorService, UserManager<IdentityUser> userManager)
         {
             _contributorService = contributorService;
+            this.userManager = userManager;
         }
 
         [HttpGet]
@@ -25,6 +28,15 @@ namespace UrbanDuck.Controllers
             return View(await _contributorService.GetById(id));
         }
 
+        [HttpGet("Contributor")]
+        public async Task<IActionResult> GetById()
+        {
+            var userId = userManager.GetUserId(User);
+            //var GuidUserId = Guid.Parse(userId);
+            var aa = await _contributorService.GetByUserId(userId);
+            return View();
+        }
+
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -34,6 +46,8 @@ namespace UrbanDuck.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Contributor model)
         {
+            var userid = userManager.GetUserId(User);
+
             await _contributorService.Create(model);
             return RedirectToAction("GetById", new { id = model.Id });
         }

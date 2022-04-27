@@ -1,4 +1,7 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> signInManager;
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -6,4 +9,8 @@
     <h1 class="display-4">Welcome</h1>
     <a asp-controller="Company" asp-action="All">List All Companies</a>
     <a asp-controller="Contributor" asp-action="All">List All Contributors</a>
+    @if (signInManager.IsSignedIn(User))
+                        {
+                        <a asp-controller="Contributor" asp-action="GetById">Contributor Profile</a>
+                        }
 </div>

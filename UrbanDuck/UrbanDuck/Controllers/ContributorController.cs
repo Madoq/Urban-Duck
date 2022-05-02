@@ -9,8 +9,8 @@ namespace UrbanDuck.Controllers
     public class ContributorController : Controller
     {
         private readonly IContributorService _contributorService;
-        UserManager<IdentityUser> userManager;
-        public ContributorController(IContributorService contributorService, UserManager<IdentityUser> userManager)
+        UserManager<User> userManager;
+        public ContributorController(IContributorService contributorService, UserManager<User> userManager)
         {
             _contributorService = contributorService;
             this.userManager = userManager;
@@ -22,19 +22,16 @@ namespace UrbanDuck.Controllers
             return View(await _contributorService.GetAll());
         }
 
-        [HttpGet("Contributor/{id:int}")]
-        public async Task<IActionResult> GetById(int id)
-        {
-            return View(await _contributorService.GetById(id));
-        }
+        //[HttpGet("Contributor/{id:int}")]
+        //public async Task<IActionResult> GetById(int id)
+        //{
+        //    return View(await _contributorService.GetById(id));
+        //}
 
         [HttpGet("Contributor")]
         public async Task<IActionResult> GetById()
         {
-            var userId = userManager.GetUserId(User);
-            //var GuidUserId = Guid.Parse(userId);
-            var aa = await _contributorService.GetByUserId(userId);
-            return View();
+            return View(await _contributorService.GetByUserId(int.Parse(userManager.GetUserId(User))));
         }
 
         [HttpGet]

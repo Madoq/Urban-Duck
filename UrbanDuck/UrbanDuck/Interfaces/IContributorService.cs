@@ -4,6 +4,6 @@ namespace UrbanDuck.Interfaces
 {
     public interface IContributorService : IBaseService<Contributor>
     {
-        public Task<Contributor> GetByUserId(string id);
+        public Task<Contributor> GetByUserId(int id);
     }
 }

@@ -1,6 +1,5 @@
 ﻿@model IEnumerable<Contributor>
 @{
-    <a asp-controller="Contributor" asp-action="Create">Create New</a>
     @foreach(var contributor in Model)
     {
         <h1>@contributor.Id</h1>

@@ -18,7 +18,7 @@ namespace UrbanDuck.Services
             return await _contributorRepository.GetContributorWithListings(id);
         }
 
-        public async Task<Contributor> GetByUserId(string id)
+        public async Task<Contributor> GetByUserId(int id)
         {
             return (await GetByConditions(c => c.UserId == id)).FirstOrDefault();
         }

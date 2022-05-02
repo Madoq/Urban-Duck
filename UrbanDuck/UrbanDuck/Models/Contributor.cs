@@ -10,8 +10,8 @@ namespace UrbanDuck.Models
         [Key]
         public int Id { get; set; }
 
-        [ForeignKey("AspNetUsers")]
-        public string UserId { get; set; }
+        [ForeignKey("User")]
+        public int UserId { get; set; }
 
         [StringLength(30)]
         public string? FirstName { get; set; }
@@ -26,7 +26,7 @@ namespace UrbanDuck.Models
 
         public virtual Company? Company { get; set; }
 
-        //public virtual IdentityUser? User { get; set; }
+        public virtual User User { get; set; }
 
     }
 }

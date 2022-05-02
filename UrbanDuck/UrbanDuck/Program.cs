@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using UrbanDuck.Data;
 using UrbanDuck.Interfaces;
+using UrbanDuck.Models;
 using UrbanDuck.Repositories;
 using UrbanDuck.Services;
 
@@ -14,9 +15,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("UrbanDuckDbConnection")));
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<DatabaseContext>();builder.Services.AddDbContext<DatabaseContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("UrbanDuckDbConnection")));
+builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<DatabaseContext>(); builder.Services.AddDbContext<DatabaseContext>(options =>
+     options.UseSqlServer(builder.Configuration.GetConnectionString("UrbanDuckDbConnection")));
+
+//builder.Services.AddTransient(typeof(SignInManager<>), typeof(SignInManager<>));
 
 builder.Services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 
@@ -27,6 +30,8 @@ builder.Services.AddScoped(typeof(ICompanyService), typeof(CompanyService));
 
 builder.Services.AddScoped(typeof(IContributorRepository), typeof(ContributorRepository));
 builder.Services.AddScoped(typeof(IContributorService), typeof(ContributorService));
+
+//builder.Services.AddIdentity<User, UserRoles>().AddEntityFrameworkStores<DatabaseContext>();
 
 var app = builder.Build();
 

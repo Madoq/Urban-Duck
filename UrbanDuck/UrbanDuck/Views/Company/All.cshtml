@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Company>
+@{
+    <a asp-controller="Company" asp-action="Create">Create New</a>
+    @foreach(var company in Model)
+    {
+        <h1>@company.Id</h1>
+        <h1>@company.CompanyName</h1>
+        <h1>@company.NipCode</h1>
+
+        <a asp-controller="Company" asp-action="GetById" asp-route-id="@company.Id">Details</a>
+        <a asp-controller="Company" asp-action="Edit" asp-route-id="@company.Id">Edit</a>
+        <form asp-controller="Company" asp-action="Delete" asp-route-id="@company.Id" method="post">
+        <button type="submit">Delete</button>
+        </form>
+        <hr>
+    };
+}

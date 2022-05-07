@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Contributor>
+@{
+    @foreach(var contributor in Model)
+    {
+        <h1>@contributor.Id</h1>
+        <h1>@contributor.FirstName</h1>
+        <h1>@contributor.LastName</h1>
+        //<a asp-controller="Listing" asp-action="GetByContributorId">View Listings</a>
+
+        <form asp-controller="Contributor" asp-action="Delete" asp-route-id="@contributor.Id" method="post">
+        <button type="submit">Delete</button>
+        </form>
+        
+        <a asp-controller="Contributor" asp-action="Edit" asp-route-id="@contributor.Id">Edit</a>
+        <hr>
+    };
+}

@@ -1,0 +1,18 @@
+﻿@model Contributor
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    <form asp-controller="Contributor" asp-action="Edit" method="post">
+    <input hidden asp-for="Id"/>
+    <input hidden asp-for="UserId"/>
+    <div>
+    <label asp-for="FirstName"></label>
+    <input asp-for="FirstName">
+    </div>
+    <div>
+    <label asp-for="LastName"></label>
+    <input asp-for="LastName">
+    </div>
+    <button type="submit">Edit</button>
+    </form>
+
+}

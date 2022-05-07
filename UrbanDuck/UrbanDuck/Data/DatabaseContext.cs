@@ -5,7 +5,7 @@ using UrbanDuck.Models;
 
 namespace UrbanDuck.Data
 {
-    public class DatabaseContext : IdentityDbContext<IdentityUser>
+    public class DatabaseContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
@@ -22,6 +22,7 @@ namespace UrbanDuck.Data
             optionsBuilder.UseSqlServer(connectionString);
         }
 
+        public override DbSet<User> Users { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Company> Companies { get; set; }
@@ -30,9 +31,21 @@ namespace UrbanDuck.Data
         public DbSet<ListingTags> ListingTagsDb { get; set; }
         public DbSet<Photo> Photos { get; set; }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //modelBuilder.Entity<Contributor>()
+            //    .HasOne(c => c.User)
+            //    .WithOne(t => t.Contributor).HasForeignKey<Contributor>(n => n.UserId);
 
-        //}
+            
+
+
+            modelBuilder.Entity<Company>().HasData(new Company { Id = 1, CompanyName = "Company 1", NipCode = 10 });
+            modelBuilder.Entity<Company>().HasData(new Company { Id = 2, CompanyName = "Company 2", NipCode = 20 });
+            modelBuilder.Entity<Company>().HasData(new Company { Id = 3, CompanyName = "Company 3", NipCode = 30 });
+
+            base.OnModelCreating(modelBuilder);
+            
+        }
     }
 }

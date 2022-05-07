@@ -22,12 +22,6 @@ namespace UrbanDuck.Controllers
             return View(await _contributorService.GetAll());
         }
 
-        //[HttpGet("Contributor/{id:int}")]
-        //public async Task<IActionResult> GetById(int id)
-        //{
-        //    return View(await _contributorService.GetById(id));
-        //}
-
         [HttpGet("Contributor")]
         public async Task<IActionResult> GetById()
         {

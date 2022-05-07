@@ -12,12 +12,6 @@ namespace UrbanDuck.Controllers
             _addressService = addressService;
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> All()
-        //{
-        //    return View(await _addressService.GetAll());
-        //}
-
         [HttpGet("Address/{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {

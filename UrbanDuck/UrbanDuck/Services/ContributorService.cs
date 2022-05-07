@@ -8,9 +8,11 @@ namespace UrbanDuck.Services
     public class ContributorService : IContributorService
     {
         private readonly IContributorRepository _contributorRepository;
-        public ContributorService(IContributorRepository contributorRepository)
+        private readonly IListingService _listingService;
+        public ContributorService(IContributorRepository contributorRepository, IListingService listingService)
         {
             _contributorRepository = contributorRepository;
+            _listingService = listingService;
         }
 
         public async Task<Contributor> GetById(int id)
@@ -40,6 +42,8 @@ namespace UrbanDuck.Services
         public async Task Delete(int id)
         {
             var model = await GetById(id);
+            var listingsToDelete = await _listingService.GetByConditions(l => l.ContributorId == id);
+            if (listingsToDelete.Count() > 0) foreach (Listing listing in listingsToDelete) await _listingService.Delete(listing.Id);
             if (model != null) await _contributorRepository.Delete(model);
         }
 

@@ -9,12 +9,15 @@ namespace UrbanDuck.Services
     public class ListingService : IListingService
     {
         private readonly IListingRepository _listingRepository;
+        private readonly IBaseService<Booking> _bookingService;
         private readonly Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnvironment;
-        public ListingService(IListingRepository listingRepository, Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnvironment)
+        public ListingService(IListingRepository listingRepository, Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnvironment, 
+            IBaseService<Booking> bookingService)
         {
             _listingRepository = listingRepository;
             this.hostingEnvironment = hostingEnvironment;
-        }
+            _bookingService = bookingService;
+         }
 
         public async Task<Listing> GetById(int id)
         {
@@ -38,6 +41,8 @@ namespace UrbanDuck.Services
         public async Task Delete(int id)
         {
             var model = await GetById(id);
+            IEnumerable<Booking> bookingsToDelete = await _bookingService.GetByConditions(b => b.ListingId == id);
+            if (bookingsToDelete.Count() > 0) foreach (Booking booking in bookingsToDelete) await _bookingService.Delete(booking.Id);
             if (model != null) await _listingRepository.Delete(model);
         }
 
@@ -61,7 +66,6 @@ namespace UrbanDuck.Services
                 string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
                 uniqueFileName = Guid.NewGuid().ToString() + "_" + model.photo.FileName;
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                //code below prevents the app from crashing when replacing a photo used by more than 1 employee
                 using (var filestream = new FileStream(filePath, FileMode.Create))
                 {
                     model.photo.CopyTo(filestream);

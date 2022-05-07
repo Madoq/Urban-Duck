@@ -11,21 +11,23 @@
     <h1>@Model.Amount</h1>
     <h1>@Model.Description</h1>
     <hr/>
-            
 
-        @if (signInManager.IsSignedIn(User) && contributorService.GetByUserId(int.Parse(userManager.GetUserId(User))).Result.Id != @Model.ContributorId)
-        {
-          <form asp-controller="Booking" asp-action="Create" asp-route-userId=@int.Parse(userManager.GetUserId(User)) asp-route-listingId=@Model.Id method="post">
-        <button type="submit">Book Listing</button>      
-        </form>
-    }
-    else if(signInManager.IsSignedIn(User))
+    if (signInManager.IsSignedIn(User))
     {
-        <a asp-controller="Listing" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-        <form asp-controller="Listing" asp-action="Delete" asp-route-id="@Model.Id" method="post">
-        <button type="submit">Delete</button>
-        </form>
-        <a asp-controller="Listing" asp-action="AddPhoto" asp-route-id="@Model.Id">Add Photo</a>
-        <a asp-controller="Address" asp-action="Create" asp-route-listingId="@Model.Id">Add Address</a>
+        if (contributorService.GetByConditions(c => c.UserId == int.Parse(userManager.GetUserId(User))).Result.FirstOrDefault() != null &&
+        (await contributorService.GetByUserId(int.Parse(userManager.GetUserId(User)))).Id == @Model.ContributorId)
+        {
+            <a asp-controller="Listing" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+            <form asp-controller="Listing" asp-action="Delete" asp-route-id="@Model.Id" method="post">
+                <button type="submit">Delete</button>
+            </form>
+            <a asp-controller="Listing" asp-action="AddPhoto" asp-route-id="@Model.Id">Add Photo</a>
+        }
+        else
+        {
+            <form asp-controller="Booking" asp-action="Create" asp-route-userId=@int.Parse(userManager.GetUserId(User)) asp-route-listingId=@Model.Id method="post">
+                <button type="submit">Book Listing</button>      
+            </form>
+        }
     }
 }

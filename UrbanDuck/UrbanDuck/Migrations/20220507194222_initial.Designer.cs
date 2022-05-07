@@ -12,8 +12,8 @@ using UrbanDuck.Data;
 namespace UrbanDuck.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220502152610_Initial")]
-    partial class Initial
+    [Migration("20220507194222_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -176,7 +176,8 @@ namespace UrbanDuck.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<int>("CompanyId")
+                    b.Property<int?>("CompanyId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("PostCode")
@@ -207,10 +208,14 @@ namespace UrbanDuck.Migrations
                     b.Property<int>("ListingId")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ListingId")
-                        .IsUnique();
+                    b.HasIndex("ListingId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Bookings");
                 });
@@ -295,6 +300,10 @@ namespace UrbanDuck.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int?>("AddressId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
                     b.Property<int?>("Amount")
                         .HasColumnType("int");
 
@@ -312,7 +321,12 @@ namespace UrbanDuck.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("photoPath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
 
                     b.HasIndex("ContributorId");
 
@@ -342,28 +356,6 @@ namespace UrbanDuck.Migrations
                     b.HasKey("ListingId");
 
                     b.ToTable("ListingTagsDb");
-                });
-
-            modelBuilder.Entity("UrbanDuck.Models.Photo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("ListingId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Path")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ListingId");
-
-                    b.ToTable("Photos");
                 });
 
             modelBuilder.Entity("UrbanDuck.Models.User", b =>
@@ -498,11 +490,21 @@ namespace UrbanDuck.Migrations
 
             modelBuilder.Entity("UrbanDuck.Models.Booking", b =>
                 {
-                    b.HasOne("UrbanDuck.Models.Listing", null)
-                        .WithOne("Booking")
-                        .HasForeignKey("UrbanDuck.Models.Booking", "ListingId")
+                    b.HasOne("UrbanDuck.Models.Listing", "Listing")
+                        .WithMany("Booking")
+                        .HasForeignKey("ListingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("UrbanDuck.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Listing");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("UrbanDuck.Models.Contributor", b =>
@@ -524,11 +526,19 @@ namespace UrbanDuck.Migrations
 
             modelBuilder.Entity("UrbanDuck.Models.Listing", b =>
                 {
+                    b.HasOne("UrbanDuck.Models.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("UrbanDuck.Models.Contributor", "Contributor")
                         .WithMany("Listings")
                         .HasForeignKey("ContributorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Address");
 
                     b.Navigation("Contributor");
                 });
@@ -537,17 +547,6 @@ namespace UrbanDuck.Migrations
                 {
                     b.HasOne("UrbanDuck.Models.Listing", "Listing")
                         .WithMany()
-                        .HasForeignKey("ListingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Listing");
-                });
-
-            modelBuilder.Entity("UrbanDuck.Models.Photo", b =>
-                {
-                    b.HasOne("UrbanDuck.Models.Listing", "Listing")
-                        .WithMany("Photos")
                         .HasForeignKey("ListingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -569,10 +568,7 @@ namespace UrbanDuck.Migrations
 
             modelBuilder.Entity("UrbanDuck.Models.Listing", b =>
                 {
-                    b.Navigation("Booking")
-                        .IsRequired();
-
-                    b.Navigation("Photos");
+                    b.Navigation("Booking");
                 });
 
             modelBuilder.Entity("UrbanDuck.Models.User", b =>

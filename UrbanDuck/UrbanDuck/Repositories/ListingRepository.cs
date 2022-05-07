@@ -11,8 +11,9 @@ namespace UrbanDuck.Repositories
 
         public async Task<Listing> GetListingWithData(int listingId)
         {
-            return await _context.Listings.Where(x => x.Id == listingId).Include(x => x.Address)
-                .Include(x => x.Contributor).Include(x => x.Address).FirstOrDefaultAsync();
+            return await _context.Listings.Where(x => x.Id == listingId)
+                .Include(x => x.Contributor)
+                .FirstOrDefaultAsync();
         }
     }
 }

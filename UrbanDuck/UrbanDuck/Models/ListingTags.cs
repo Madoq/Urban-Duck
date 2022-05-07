@@ -4,7 +4,7 @@ using UrbanDuck.Interfaces;
 
 namespace UrbanDuck.Models
 {
-    public class ListingTags // : IDbModel
+    public class ListingTags
     {
         [Key]
         [ForeignKey("Listing")]

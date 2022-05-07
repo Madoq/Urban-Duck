@@ -31,6 +31,9 @@ builder.Services.AddScoped(typeof(ICompanyService), typeof(CompanyService));
 builder.Services.AddScoped(typeof(IContributorRepository), typeof(ContributorRepository));
 builder.Services.AddScoped(typeof(IContributorService), typeof(ContributorService));
 
+builder.Services.AddScoped(typeof(IListingService), typeof(ListingService));
+builder.Services.AddScoped(typeof(IListingRepository), typeof(ListingRepository));
+
 //builder.Services.AddIdentity<User, UserRoles>().AddEntityFrameworkStores<DatabaseContext>();
 
 var app = builder.Build();

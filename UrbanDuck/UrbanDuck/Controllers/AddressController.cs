@@ -30,7 +30,7 @@ namespace UrbanDuck.Controllers
             return View(await _addressService.GetByConditions(x => x.CompanyId == companyId));
         }
 
-        [HttpGet("Address/Create/{companyId:int}")]
+        [HttpGet("Address/Create/")]
         public async Task<IActionResult> Create(int companyId)
         {
             ViewBag.CompanyId = companyId;

@@ -1,0 +1,15 @@
+﻿@model PhotoUploadModel
+
+<form asp-controller="Listing" asp-action="AddPhoto" enctype="multipart/form-data" method="post">
+       <input hidden asp-for="listingId">
+    <dl><dl>
+        <dt>
+            <label asp-for="@Model.photo"></label>
+        </dt>
+        <dd>
+            <input asp-for="@Model.photo" type="file">
+            <span asp-validation-for="@Model.photo"></span>
+        </dd>
+    </dl>
+    <input asp-page-handler="Upload" class="btn" type="submit" value="Upload" />
+    </form>

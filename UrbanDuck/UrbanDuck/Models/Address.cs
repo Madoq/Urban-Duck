@@ -22,8 +22,13 @@ namespace UrbanDuck.Models
         public int? BuildingNumber { get; set; }
 
         [ForeignKey("Company")]
-        public int CompanyId { get; set; }
+        public int? CompanyId { get; set; }
 
         public virtual Company Company { get; set; }
+
+        [ForeignKey("Listing")]
+        public int? ListingId { get; set; }
+
+        public virtual Listing Listing { get; set; }
     }
 }

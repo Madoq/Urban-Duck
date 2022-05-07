@@ -29,7 +29,6 @@ namespace UrbanDuck.Data
         public DbSet<Contributor> Contributors { get; set; }
         public DbSet<Listing> Listings { get; set; }
         public DbSet<ListingTags> ListingTagsDb { get; set; }
-        public DbSet<Photo> Photos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

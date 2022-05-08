@@ -80,11 +80,9 @@ namespace EmailService
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
             var emailMessage = new MimeMessage();
-            //var user = _userManager.FindByEmailAsync(email);
             emailMessage.From.Add(new MailboxAddress(_emailConfig.From));
             emailMessage.To.Add(new MailboxAddress(email));
             emailMessage.Subject = subject;
-
             var bodyBuilder = new BodyBuilder { HtmlBody = string.Format(htmlMessage) };
             emailMessage.Body = bodyBuilder.ToMessageBody();
 

@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace EmailService
 {
-    public class EmailSender : IEmailSender
+    public class EmailSender : IEmailSender, IEmailSenderService
     {
         private readonly EmailConfiguration _emailConfig;
 

@@ -41,6 +41,7 @@ builder.Services.AddScoped(typeof(IContributorService), typeof(ContributorServic
 
 builder.Services.AddSingleton(emailConfig); 
 builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.AddScoped<IEmailSenderService, EmailSender>();
 builder.Services.Configure<FormOptions>(o =>
 {
     o.ValueLengthLimit = int.MaxValue;

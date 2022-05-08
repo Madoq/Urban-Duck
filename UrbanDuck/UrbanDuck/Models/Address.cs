@@ -22,7 +22,7 @@ namespace UrbanDuck.Models
         public int? BuildingNumber { get; set; }
 
         [ForeignKey("Company")]
-        public int CompanyId { get; set; }
+        public int? CompanyId { get; set; }
 
         public virtual Company Company { get; set; }
     }

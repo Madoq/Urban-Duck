@@ -13,7 +13,7 @@
     {
         <h1>@Model.FirstName</h1>
         <h1>@Model.LastName</h1>
-
+        <a asp-controller="Listing" asp-action="Create">Add New Listing</a>
         <a asp-controller="Contributor" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
         <form asp-controller="Contributor" asp-action="Delete" asp-route-id="@Model.Id" method="post">
         <button type="submit">Delete</button></form>
@@ -22,12 +22,7 @@
         {
             <hr />
             <b>@listing.Title</b>
-            //<a asp-controller="Address" asp-action="Edit" asp-route-id="@address.Id">Edit</a>
-            //<form asp-controller="Address" asp-action="Delete" asp-route-id="@address.Id" method="post">
-            //<button type="submit">Delete</button></form>
         }
         <hr/>
-        //<a asp-controller="Address" asp-action="Create" asp-route-companyId="@Model.Id">Add Listing</a>
-       //<a asp-controller="Contributor" asp-action="All">List All Contributors</a>
     }
 }

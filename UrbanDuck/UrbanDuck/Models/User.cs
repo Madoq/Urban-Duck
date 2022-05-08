@@ -7,8 +7,5 @@ namespace UrbanDuck.Models
     public class User : IdentityUser<int>
     {
         public virtual Contributor Contributor { get; set; }
-
-        //[ForeignKey("Contributor")]
-        //public int ContributorId { get; set; }
     }
 }

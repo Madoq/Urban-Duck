@@ -12,12 +12,6 @@ namespace UrbanDuck.Controllers
             _addressService = addressService;
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> All()
-        //{
-        //    return View(await _addressService.GetAll());
-        //}
-
         [HttpGet("Address/{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -30,7 +24,7 @@ namespace UrbanDuck.Controllers
             return View(await _addressService.GetByConditions(x => x.CompanyId == companyId));
         }
 
-        [HttpGet("Address/Create/{companyId:int}")]
+        [HttpGet("Address/Create/")]
         public async Task<IActionResult> Create(int companyId)
         {
             ViewBag.CompanyId = companyId;

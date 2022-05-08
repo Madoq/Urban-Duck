@@ -1,0 +1,23 @@
+﻿@model Listing
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    <form asp-controller="Listing" asp-action="Edit" method="post">
+    <div>
+    <input hidden asp-for="ContributorId"/>
+    <input hidden asp-for="Id"/>
+    <input hidden asp-for="photoPath"/>
+    <label asp-for="Title"></label>
+    <input asp-for="Title">
+    </div>
+    <div>
+    <label asp-for="Amount"></label>
+    <input asp-for="Amount">
+    </div>
+    <div>
+    <label asp-for="Description"></label>
+    <input asp-for="Description">
+    </div>
+    <button type="submit">Submit</button>
+    </form>
+
+}

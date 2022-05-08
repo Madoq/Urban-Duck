@@ -1,0 +1,15 @@
+﻿@using UrbanDuck.Interfaces
+@model IEnumerable<Booking>
+@inject IListingService listingService;
+
+@{
+    @foreach(var booking in Model)
+    {
+        var listing = await listingService.GetById(booking.ListingId);
+        <h1>@listing.Title</h1>
+        <a asp-controller="Listing" asp-action="GetById" asp-route-id="@listing.Id">Details</a>
+        <form asp-controller="Booking" asp-action="Delete" asp-route-id="@booking.Id" method="post">
+        <button type="submit">Delete</button></form>
+        <div></div>
+    };
+}

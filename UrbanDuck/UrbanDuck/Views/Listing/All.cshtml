@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Listing>
+@{
+    @foreach(var listing in Model)
+    {
+        <h1>@listing.Id</h1>
+        <h1>@listing.Title</h1>
+
+        <a asp-controller="Listing" asp-action="GetById" asp-route-id="@listing.Id">Details</a>
+
+        <hr>
+    };
+}

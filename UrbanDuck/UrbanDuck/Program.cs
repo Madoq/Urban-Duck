@@ -1,4 +1,7 @@
+using EmailService;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using UrbanDuck.Data;
@@ -8,6 +11,9 @@ using UrbanDuck.Repositories;
 using UrbanDuck.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+var emailConfig = builder.Configuration
+    .GetSection("EmailConfiguration")
+    .Get<EmailService.EmailConfiguration>();
 //var connectionString = builder.Configuration.GetConnectionString("localdb");
 
 // Add services to the container.
@@ -32,6 +38,16 @@ builder.Services.AddScoped(typeof(IContributorRepository), typeof(ContributorRep
 builder.Services.AddScoped(typeof(IContributorService), typeof(ContributorService));
 
 //builder.Services.AddIdentity<User, UserRoles>().AddEntityFrameworkStores<DatabaseContext>();
+
+builder.Services.AddSingleton(emailConfig); 
+builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.AddScoped<IEmailSenderService, EmailSender>();
+builder.Services.Configure<FormOptions>(o =>
+{
+    o.ValueLengthLimit = int.MaxValue;
+    o.MultipartBodyLengthLimit = int.MaxValue;
+    o.MemoryBufferThreshold = int.MaxValue;
+});
 
 var app = builder.Build();
 

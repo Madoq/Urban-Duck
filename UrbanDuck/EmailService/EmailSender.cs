@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Identity;
 
 namespace EmailService
 {
@@ -73,6 +75,20 @@ namespace EmailService
             emailMessage.Body = bodyBuilder.ToMessageBody();
 
             return emailMessage;
+        }
+
+        public async Task SendEmailAsync(string email, string subject, string htmlMessage)
+        {
+            var emailMessage = new MimeMessage();
+            //var user = _userManager.FindByEmailAsync(email);
+            emailMessage.From.Add(new MailboxAddress(_emailConfig.From));
+            emailMessage.To.Add(new MailboxAddress(email));
+            emailMessage.Subject = subject;
+
+            var bodyBuilder = new BodyBuilder { HtmlBody = string.Format(htmlMessage) };
+            emailMessage.Body = bodyBuilder.ToMessageBody();
+
+            await SendAsync(emailMessage);
         }
     }
 }

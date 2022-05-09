@@ -4,6 +4,7 @@
 @inject SignInManager<User> signInManager;
 @inject UserManager<User> userManager;
 @inject IContributorService contributorService;
+@inject IBaseService<Booking> bookingService;
 @{
     var imgPath = "~/images/" + (Model.photoPath ?? "noimage.jpg");
     <img class="card-img-top" src="@imgPath" asp-append-version="true" />
@@ -23,10 +24,16 @@
             </form>
             <a asp-controller="Listing" asp-action="AddPhoto" asp-route-id="@Model.Id">Add Photo</a>
         }
-        else
+        else if ((await bookingService.GetByConditions(b => b.UserId == int.Parse(userManager.GetUserId(User)))).Count()<1)
         {
             <form asp-controller="Booking" asp-action="Create" asp-route-userId=@int.Parse(userManager.GetUserId(User)) asp-route-listingId=@Model.Id method="post">
                 <button type="submit">Book Listing</button>      
+            </form>
+        }
+        else
+        {
+            <form asp-controller="Booking" asp-action="Delete" asp-route-id="@((await bookingService.GetByConditions(b => b.ListingId == Model.Id)).FirstOrDefault().Id)" method="post">
+                <button type="submit">Delete Booking</button>
             </form>
         }
     }

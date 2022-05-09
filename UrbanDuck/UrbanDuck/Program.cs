@@ -17,6 +17,11 @@ var emailConfig = builder.Configuration
 //var connectionString = builder.Configuration.GetConnectionString("localdb");
 
 // Add services to the container.
+builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+    googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+});
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 

@@ -16,6 +16,12 @@ var emailConfig = builder.Configuration
     .GetSection("EmailConfiguration")
     .Get<EmailService.EmailConfiguration>();
 
+// Add services to the container.
+builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+    googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+});
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 

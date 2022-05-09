@@ -16,6 +16,7 @@ namespace UrbanDuck.Controllers
 
         public IActionResult Index()
         {
+            _logger.LogCritical("HELLO THERE"); //logging test
             return View();
         }
 

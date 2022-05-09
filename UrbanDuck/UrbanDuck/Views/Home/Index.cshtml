@@ -9,9 +9,10 @@
     <h1 class="display-4">Welcome</h1>
     <a asp-controller="Company" asp-action="All">List All Companies</a>
     <a asp-controller="Contributor" asp-action="All">List All Contributors</a>
-    <a asp-controller="Listing" asp-action="All">View Listings</a>
+    <a asp-controller="Listing" asp-action="Available">View Listings</a>
     @if (signInManager.IsSignedIn(User))
                         {
                         <a asp-controller="Contributor" asp-action="GetById">Contributor Profile</a>
+                        <a asp-controller="Listing" asp-action="MyListings">My Listings</a>
                         }
 </div>

@@ -9,15 +9,29 @@ namespace UrbanDuck.Controllers
     public class ListingController : Controller
     {
         private readonly IListingService _listingService;
-        public ListingController(IListingService listingService)
+        private readonly UserManager<User> _userManager;
+        public ListingController(IListingService listingService, UserManager<User> userManager)
         {
             _listingService = listingService;
+            _userManager = userManager;
         }
 
         [HttpGet("Listing")]
         public async Task<IActionResult> All()
         {
             return View(await _listingService.GetAll());
+        }
+
+        [HttpGet("Listing/Available")]
+        public async Task<IActionResult> Available()
+        {
+            return View(await _listingService.GetByConditions(l => l.Booking.Count < l.Amount));
+        }
+
+        [HttpGet("Listing/MyListings")]
+        public async Task<IActionResult> MyListings()
+        {
+            return View(await _listingService.GetByConditions(l => l.Contributor.UserId == int.Parse(_userManager.GetUserId(User))));
         }
 
         [HttpGet("Listing/{id:int}")]

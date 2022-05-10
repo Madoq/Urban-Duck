@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Listing>
+
+<h1 class="text-center"><i class="fas fa-comments-dollar text-success"></i> Listings </h1>
+
+
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                <a onclick="showInPopup('@Url.Action("AddEditMyListings","Listing",null,Context.Request.Scheme)','New Listing')" class="btn btn-success text-white"><i class="fas fa-random"></i> New Listing</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    <div>
+                        <a onclick="showInPopup('@Url.Action("AddEditMyListings","Listing",new {id=item.Id},Context.Request.Scheme)','Update Listing')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Edit</a>
+                        <form asp-action="Delete" asp-route-id="@item.Id" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
+                            <input type="submit" value="Delete" class="btn btn-danger" />
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

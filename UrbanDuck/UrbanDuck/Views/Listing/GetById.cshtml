@@ -4,6 +4,7 @@
 @inject SignInManager<User> signInManager;
 @inject UserManager<User> userManager;
 @inject IContributorService contributorService;
+@inject IListingService listingService;
 @inject IBaseService<Booking> bookingService;
 @{
     var imgPath = "~/images/" + (Model.photoPath ?? "noimage.jpg");
@@ -15,8 +16,10 @@
 
     if (signInManager.IsSignedIn(User))
     {
-        if (contributorService.GetByConditions(c => c.UserId == int.Parse(userManager.GetUserId(User))).Result.FirstOrDefault() != null &&
-        (await contributorService.GetByUserId(int.Parse(userManager.GetUserId(User)))).Id == @Model.ContributorId)
+        var userId = int.Parse(userManager.GetUserId(User));
+
+        if (contributorService.GetByConditions(c => c.UserId == userId).Result.FirstOrDefault() != null &&
+        (await contributorService.GetByUserId(userId)).Id == @Model.ContributorId)
         {
             <a asp-controller="Listing" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
             <form asp-controller="Listing" asp-action="Delete" asp-route-id="@Model.Id" method="post">
@@ -24,13 +27,13 @@
             </form>
             <a asp-controller="Listing" asp-action="AddPhoto" asp-route-id="@Model.Id">Add Photo</a>
         }
-        else if ((await bookingService.GetByConditions(b => b.UserId == int.Parse(userManager.GetUserId(User)))).Count()<1)
+        else if (!await listingService.IsBookedByUser(userId, Model.Id))
         {
-            <form asp-controller="Booking" asp-action="Create" asp-route-userId=@int.Parse(userManager.GetUserId(User)) asp-route-listingId=@Model.Id method="post">
+            <form asp-controller="Booking" asp-action="Create" asp-route-userId=@userId asp-route-listingId=@Model.Id method="post">
                 <button type="submit">Book Listing</button>      
             </form>
         }
-        else
+        else if (await listingService.IsBookedByUser(userId, Model.Id))
         {
             <form asp-controller="Booking" asp-action="Delete" asp-route-id="@((await bookingService.GetByConditions(b => b.ListingId == Model.Id)).FirstOrDefault().Id)" method="post">
                 <button type="submit">Delete Booking</button>

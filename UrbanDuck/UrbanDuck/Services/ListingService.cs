@@ -19,6 +19,11 @@ namespace UrbanDuck.Services
             _bookingService = bookingService;
          }
 
+        public async Task<bool> IsBookedByUser(int UserId, int ListingId)
+        {
+            return (await GetById(ListingId)).Booking.Any(b => b.UserId == UserId);
+        }
+
         public async Task<Listing> GetById(int id)
         {
             return await _listingRepository.GetListingWithData(id);

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using UrbanDuck.Interfaces;
 using UrbanDuck.Models;
 using UrbanDuck.Services;
@@ -15,12 +16,14 @@ namespace UrbanDuck.Controllers
         private readonly IListingService _listingService;
         private readonly UserManager<User> _userManager;
         private readonly IContributorService _contributorService;
+        private readonly IMemoryCache memoryCache;
 
-        public ListingController(IListingService listingService, UserManager<User> userManager, IContributorService contributorService)
+        public ListingController(IListingService listingService, UserManager<User> userManager, IContributorService contributorService, IMemoryCache memoryCache)
         {
             _listingService = listingService;
             _userManager = userManager;
             _contributorService = contributorService;
+            this.memoryCache = memoryCache;
         }
 
         // GET: Transaction/AddOrEdit(Insert)
@@ -91,10 +94,28 @@ namespace UrbanDuck.Controllers
         //    return View(model);
         //}
 
+        //[HttpGet("Listing/All")]
+        //public async Task<IActionResult> All()
+        //{
+        //    return View(await _listingService.GetAll());
+        //}
+
         [HttpGet("Listing/All")]
         public async Task<IActionResult> All()
         {
-            return View(await _listingService.GetAll());
+            var cacheKey = "listings";
+            if (!memoryCache.TryGetValue(cacheKey, out IEnumerable<Listing> listings))
+            {
+                listings = await _listingService.GetAll();
+                var cacheExpiryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpiration = DateTime.Now.AddMinutes(5),
+                    Priority = CacheItemPriority.High,
+                    SlidingExpiration = TimeSpan.FromMinutes(2)
+                };
+                memoryCache.Set(cacheKey, listings, cacheExpiryOptions);
+            }
+            return View(listings);
         }
 
 

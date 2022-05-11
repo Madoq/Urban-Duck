@@ -7,6 +7,7 @@
 @inject IListingService listingService;
 @inject IBaseService<Booking> bookingService;
 @{
+    if(Model != null) {
    <div class="container">
     <div class="row">
     <div class="col col-md-6">
@@ -51,5 +52,10 @@
     }
     </div>
     </div>
-</div>
-}
+        </div>
+    }else
+    {
+        <b>This listing doesn't exist.</b>
+    }
+
+    }

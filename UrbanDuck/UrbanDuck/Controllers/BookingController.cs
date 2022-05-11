@@ -8,8 +8,8 @@ namespace UrbanDuck.Controllers
     public class BookingController : Controller
     {
         private readonly UserManager<User> _userManager;
-        private readonly IBaseService<Booking> _bookingService;
-        public BookingController(IBaseService<Booking> bookingService, UserManager<User> userManager)
+        private readonly IBookingService _bookingService;
+        public BookingController(IBookingService bookingService, UserManager<User> userManager)
         {
             _bookingService = bookingService;
             _userManager = userManager;

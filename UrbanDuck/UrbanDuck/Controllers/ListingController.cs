@@ -63,7 +63,7 @@ namespace UrbanDuck.Controllers
             return View(await _listingService.GetAll());
         }
 
-        // POST: Transaction/Delete/5
+        // POST: Listing/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -85,43 +85,43 @@ namespace UrbanDuck.Controllers
         //    return View(model);
         //}
 
-        //[HttpGet("Listing")]
+        [HttpGet("Listing/All")]
         public async Task<IActionResult> All()
         {
             return View(await _listingService.GetAll());
         }
 
 
-        [HttpGet("Listing/Available")]
+        [HttpGet("Listing/All/Available")]
         public async Task<IActionResult> Available()
         {
             return View(await _listingService.GetByConditions(l => l.Booking.Count < l.Amount));
         }
 
-        [HttpGet("Listing/MyListings")]
-        public async Task<IActionResult> MyListings()
-        {
-            return View(await _listingService.GetByConditions(l => l.Contributor.UserId == int.Parse(_userManager.GetUserId(User))));
-        }
-
-        //[HttpGet("Listing/{id:int}")]
-        //public async Task<IActionResult> GetById(int id)
+        //[HttpGet("Listing/MyListings")]
+        //public async Task<IActionResult> MyListings()
         //{
-        //    return View(await _listingService.GetById(id));
+        //    return View(await _listingService.GetByConditions(l => l.Contributor.UserId == int.Parse(_userManager.GetUserId(User))));
         //}
 
-        [HttpGet("Listing/Create")]
-        public async Task<IActionResult> Create()
+        //[HttpGet("Listing/{id:int}")]
+        public async Task<IActionResult> GetById(int id)
         {
-            return View();
+            return View(await _listingService.GetById(id));
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(Listing model)
-        {
-            await _listingService.Create(model);
-            return RedirectToAction("GetById", new { id = model.Id });
-        }
+        //[HttpGet("Listing/Create")]
+        //public async Task<IActionResult> Create()
+        //{
+        //    return View();
+        //}
+
+        //[HttpPost]
+        //public async Task<IActionResult> Create(Listing model)
+        //{
+        //    await _listingService.Create(model);
+        //    return RedirectToAction("GetById", new { id = model.Id });
+        //}
 
         //[HttpPost]
         //public async Task<IActionResult> Delete(int id)
@@ -130,18 +130,18 @@ namespace UrbanDuck.Controllers
         //    return RedirectToAction("All");
         //}
 
-        [HttpGet]
-        public async Task<IActionResult> Edit(int id)
-        {
-            return View(await _listingService.GetById(id));
-        }
+        //[HttpGet]
+        //public async Task<IActionResult> Edit(int id)
+        //{
+        //    return View(await _listingService.GetById(id));
+        //}
 
-        [HttpPost]
-        public async Task<IActionResult> Edit(Listing model)
-        {
-            await _listingService.Edit(model);
-            return RedirectToAction("GetById", new { id = model.Id });
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> Edit(Listing model)
+        //{
+        //    await _listingService.Edit(model);
+        //    return RedirectToAction("GetById", new { id = model.Id });
+        //}
 
         [HttpGet("Listing/AddPhoto")]
         public async Task<IActionResult> AddPhoto(int id)

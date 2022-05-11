@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<Listing>
 @{
+    <a asp-controller="Listing" asp-action="Available">View Only Available</a>
     @foreach(var listing in Model)
     {
         <h1>@listing.Id</h1>

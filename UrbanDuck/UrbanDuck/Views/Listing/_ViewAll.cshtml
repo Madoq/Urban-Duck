@@ -36,6 +36,8 @@
                 <td>
                     <div>
                         <a onclick="showInPopup('@Url.Action("AddEditMyListings","Listing",new {id=item.Id},Context.Request.Scheme)','Update Listing')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Edit</a>
+                        <a class="btn btn-info text-white" asp-controller="Listing" asp-action="AddPhoto" asp-route-id="@item.Id"><i class="fas fa-pencil-alt"></i>Add Photo</a>
+                        <a class="btn btn-info text-white" asp-controller="Listing" asp-action="GetById" asp-route-id="@item.Id"><i class="fas fa-pencil-alt"></i>Details</a>
                         <form asp-action="Delete" asp-route-id="@item.Id" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
                             <input type="submit" value="Delete" class="btn btn-danger" />
                         </form>

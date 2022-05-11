@@ -14,10 +14,13 @@ namespace UrbanDuck.Controllers
     {
         private readonly IListingService _listingService;
         private readonly UserManager<User> _userManager;
-        public ListingController(IListingService listingService, UserManager<User> userManager)
+        private readonly IContributorService _contributorService;
+
+        public ListingController(IListingService listingService, UserManager<User> userManager, IContributorService contributorService)
         {
             _listingService = listingService;
             _userManager = userManager;
+            _contributorService = contributorService;
         }
 
         // GET: Transaction/AddOrEdit(Insert)
@@ -60,7 +63,10 @@ namespace UrbanDuck.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _listingService.GetAll());
+            var contributor = await _contributorService.GetByUserId(int.Parse(_userManager.GetUserId(User)));
+            if (contributor != null) return View(await _listingService.GetByConditions(l => l.ContributorId == contributor.Id));
+            return View();
+            //return View(await _listingService.GetAll());
         }
 
         // POST: Listing/Delete/5

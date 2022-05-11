@@ -47,7 +47,7 @@ namespace UrbanDuck.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _contributorService.Delete(id);
-            return RedirectToAction("All");
+            return RedirectToAction("GetById");
         }
 
         [HttpGet]
@@ -60,7 +60,7 @@ namespace UrbanDuck.Controllers
         public async Task<IActionResult> Edit(Contributor model)
         {
             await _contributorService.Edit(model);
-            return RedirectToAction("All", new { id = model.Id });
+            return RedirectToAction("GetById", new { id = model.Id });
         }
     }
 }

@@ -32,6 +32,7 @@
                 <button class="w-50 btn btn-lg btn-danger" type="submit">Delete</button><p></p>
             </form>
             <a asp-controller="Listing" asp-action="AddPhoto" asp-route-id="@Model.Id"><button class="w-50 btn btn-lg btn-dark">Add Photo</button></a><p></p>
+            <a asp-controller="Listing" asp-action="Index"><button class="btn btn-outline-info">My Listings</button></a>
         }
         else if ((await bookingService.GetByConditions(b => b.UserId == int.Parse(userManager.GetUserId(User)))).Count()<1 )
         {

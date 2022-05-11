@@ -129,12 +129,12 @@ namespace UrbanDuck.Controllers
         //    return RedirectToAction("GetById", new { id = model.Id });
         //}
 
-        //[HttpPost]
-        //public async Task<IActionResult> Delete(int id)
-        //{
-        //    await _listingService.Delete(id);
-        //    return RedirectToAction("All");
-        //}
+        [HttpPost]
+        public async Task<IActionResult> DetailsDelete(int id)
+        {
+            await _listingService.Delete(id);
+            return RedirectToAction("All");
+        }
 
         //[HttpGet]
         //public async Task<IActionResult> Edit(int id)

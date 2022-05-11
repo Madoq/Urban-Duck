@@ -14,12 +14,7 @@
             <input type="hidden" asp-for="photoPath" />
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">#</div>
-                    </div>
-                    <input asp-for="Price" class="form-control" />
-                </div>
+                <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="row">
@@ -35,14 +30,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label asp-for="Amount" class="control-label"></label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <i class="fas fa-dollar-sign"></i>
-                                </div>
-                            </div>
-                            <input asp-for="Amount" class="form-control" />
-                        </div>
+                        <input asp-for="Amount" class="form-control" />
                         <span asp-validation-for="Amount" class="text-danger"></span>
                     </div>
                 </div>

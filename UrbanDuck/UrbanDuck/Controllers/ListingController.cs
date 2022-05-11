@@ -133,21 +133,21 @@ namespace UrbanDuck.Controllers
         public async Task<IActionResult> DetailsDelete(int id)
         {
             await _listingService.Delete(id);
-            return RedirectToAction("All");
+            return RedirectToAction("Index");
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> Edit(int id)
-        //{
-        //    return View(await _listingService.GetById(id));
-        //}
+        [HttpGet]
+        public async Task<IActionResult> DetailsEdit(int id)
+        {
+            return View(await _listingService.GetById(id));
+        }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Edit(Listing model)
-        //{
-        //    await _listingService.Edit(model);
-        //    return RedirectToAction("GetById", new { id = model.Id });
-        //}
+        [HttpPost]
+        public async Task<IActionResult> DetailsEdit(Listing model)
+        {
+            await _listingService.Edit(model);
+            return RedirectToAction("GetById", new { id = model.Id });
+        }
 
         [HttpGet("Listing/AddPhoto")]
         public async Task<IActionResult> AddPhoto(int id)

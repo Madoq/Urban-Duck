@@ -7,10 +7,11 @@
         <h1>@contributor.LastName</h1>
 
         <form asp-controller="Contributor" asp-action="Delete" asp-route-id="@contributor.Id" method="post">
+         <a asp-controller="Contributor" asp-action="Edit" asp-route-id="@contributor.Id"><button class="btn btn-info">Edit</button></a>
         <button type="submit">Delete</button>
         </form>
         
-        <a asp-controller="Contributor" asp-action="Edit" asp-route-id="@contributor.Id">Edit</a>
+       
         <hr>
     };
 }

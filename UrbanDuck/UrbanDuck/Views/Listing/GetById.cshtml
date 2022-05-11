@@ -6,35 +6,48 @@
 @inject IContributorService contributorService;
 @inject IBaseService<Booking> bookingService;
 @{
-    var imgPath = "~/images/" + (Model.photoPath ?? "noimage.jpg");
+   <div class="container">
+    <div class="row">
+    <div class="col col-md-6">
+    @{
+        var imgPath = "~/images/" + (Model.photoPath ?? "noimage.jpg");
+    }
+    
     <img class="card-img-top" src="@imgPath" asp-append-version="true" />
+    </div>
+    <div class="col col-md-6">
     <h1>@Model.Title</h1>
-    <h1>@Model.Amount</h1>
-    <h1>@Model.Description</h1>
+    <h2>@Model.Amount</h2>
+    <h3>@Model.Description</h3>
     <hr/>
-
-    if (signInManager.IsSignedIn(User))
-    {
+    @{
+        if (signInManager.IsSignedIn(User))
+        {
         if (contributorService.GetByConditions(c => c.UserId == int.Parse(userManager.GetUserId(User))).Result.FirstOrDefault() != null &&
         (await contributorService.GetByUserId(int.Parse(userManager.GetUserId(User)))).Id == @Model.ContributorId)
         {
-            <a asp-controller="Listing" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+            
+            <a asp-controller="Listing" asp-action="Edit" asp-route-id="@Model.Id"><button class="w-50 btn btn-lg btn-warning">Edit</button></a><p></p>
             <form asp-controller="Listing" asp-action="Delete" asp-route-id="@Model.Id" method="post">
-                <button type="submit">Delete</button>
+                <button class="w-50 btn btn-lg btn-danger" type="submit">Delete</button><p></p>
             </form>
-            <a asp-controller="Listing" asp-action="AddPhoto" asp-route-id="@Model.Id">Add Photo</a>
+            <a asp-controller="Listing" asp-action="AddPhoto" asp-route-id="@Model.Id"><button class="w-50 btn btn-lg btn-dark">Add Photo</button></a><p></p>
         }
-        else if ((await bookingService.GetByConditions(b => b.UserId == int.Parse(userManager.GetUserId(User)))).Count()<1)
+        else if ((await bookingService.GetByConditions(b => b.UserId == int.Parse(userManager.GetUserId(User)))).Count()<1 )
         {
             <form asp-controller="Booking" asp-action="Create" asp-route-userId=@int.Parse(userManager.GetUserId(User)) asp-route-listingId=@Model.Id method="post">
-                <button type="submit">Book Listing</button>      
+                <button class="btn btn-dark" type="submit">Book Listing</button>      
             </form>
         }
         else
         {
             <form asp-controller="Booking" asp-action="Delete" asp-route-id="@((await bookingService.GetByConditions(b => b.ListingId == Model.Id)).FirstOrDefault().Id)" method="post">
-                <button type="submit">Delete Booking</button>
+                <button class="btn btn-danger" type="submit">Delete Booking</button>
             </form>
         }
     }
+    }
+    </div>
+    </div>
+</div>
 }

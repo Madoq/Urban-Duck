@@ -3,13 +3,17 @@
 @inject IListingService listingService;
 
 @{
+    <ul class="list-group">
     @foreach(var booking in Model)
     {
         var listing = await listingService.GetById(booking.ListingId);
-        <h1>@listing.Title</h1>
-        <a asp-controller="Listing" asp-action="GetById" asp-route-id="@listing.Id">Details</a>
+        <li class="list-group-item">
+        <p>@listing.Title
         <form asp-controller="Booking" asp-action="Delete" asp-route-id="@booking.Id" method="post">
-        <button type="submit">Delete</button></form>
-        <div></div>
-    };
+        <a asp-controller="Listing" asp-action="GetById" asp-route-id="@listing.Id"><button class="btn btn-info justify-align-right">Details</button></a>
+        <button class="btn btn-danger justify-align-right" type="submit">Delete</button></form>
+        </p>
+        </li>
+    }
+    </ul>
 }

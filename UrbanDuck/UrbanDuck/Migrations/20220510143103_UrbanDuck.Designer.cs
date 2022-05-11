@@ -12,8 +12,8 @@ using UrbanDuck.Data;
 namespace UrbanDuck.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220507194916_initial2")]
-    partial class initial2
+    [Migration("20220510143103_UrbanDuck")]
+    partial class UrbanDuck
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

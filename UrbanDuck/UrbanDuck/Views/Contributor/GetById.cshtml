@@ -13,13 +13,15 @@
     {
         <h1>@Model.FirstName</h1>
         <h1>@Model.LastName</h1>
-        <a asp-controller="Listing" asp-action="Create">Add New Listing</a>
-        <a asp-controller="Contributor" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+        <a asp-controller="Listing" asp-action="Create"><button class="btn btn-primary">Add New Listing </button></a>
+        <p>
         <form asp-controller="Contributor" asp-action="Delete" asp-route-id="@Model.Id" method="post">
-        <button type="submit">Delete</button></form>
-        <a asp-controller="Listing" asp-action="Index">View My Listings</a>
-
-
+        
+        <button class="btn btn-danger" type="submit">Delete</button>
+        <a asp-controller="Contributor" asp-action="Edit" asp-route-id="@Model.Id"><button class="btn btn-info">Edit</button></a>
+     
+        </form>
+        </p>
         @if(Model.Listings != null) foreach (Listing listing in Model.Listings)
         {
             <hr />

@@ -1,12 +1,32 @@
 ﻿@model IEnumerable<Listing>
 @{
+    <div class="container"> 
     @foreach(var listing in Model)
     {
-        <h1>@listing.Id</h1>
-        <h1>@listing.Title</h1>
-
-        <a asp-controller="Listing" asp-action="GetById" asp-route-id="@listing.Id">Details</a>
-
+        <p></p>
+        <a class="nodecoration" asp-controller="Listing" asp-action="GetById" asp-route-id="@listing.Id">
+        <div class = "row bg-light">
+        <div class = "col col-md-3 thumbnail">
+        @{
+            var imgPath = "~/images/" + (listing.photoPath ?? "noimage.jpg");
+        }
+        <img class="img-fluid "  src="@imgPath" asp-append-version="true" />
+        </div>
+        <div class = "col col-md-8">
+        <p>
+        <h2>@listing.Title</h2>
+        </p>
+        <p>
+        <h2>Amount: @listing.Amount</h2>
+        </p>
+        </div>
+        <div class = "col col-md-1 d-flex flex-column justify-content-center align-item-center">
+        <h3 >@listing.Price $</h3>
+        </div>
         <hr>
-    };
+        </div>
+        </a>
+    }
+    </div>
+
 }

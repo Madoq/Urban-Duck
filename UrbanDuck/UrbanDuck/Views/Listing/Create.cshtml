@@ -6,21 +6,26 @@
 
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
+    <h1>Fill informations to add new listing </h1>
     <form asp-controller="Listing" asp-action="Create" method="post">
     <input hidden asp-for="ContributorId" value=@(contributorService.GetByUserId((int.Parse(userManager.GetUserId(User)))).Result.Id)>
     <div>
     <label asp-for="Title"></label>
-    <input asp-for="Title">
+    <input class="form-control" asp-for="Title">
     </div>
     <div>
     <label asp-for="Amount"></label>
-    <input asp-for="Amount">
+    <input class="form-control" asp-for="Amount">
     </div>
     <div>
     <label asp-for="Description"></label>
-    <input asp-for="Description">
+    <input class="form-control" asp-for="Description">
     </div>
-
-    <button type="submit">Create</button>
+    <div>
+    <label asp-for="Price"></label>
+    <input class="form-control" asp-for="Price">
+    </div>
+    <p> </p>
+    <button class="btn btn-primary" type="submit">Create</button>
     </form>
 }

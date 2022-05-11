@@ -4,7 +4,7 @@
 
 namespace UrbanDuck.Migrations
 {
-    public partial class initial2 : Migration
+    public partial class UrbanDuck : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

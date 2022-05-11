@@ -19,9 +19,9 @@
         
         <button class="btn btn-danger" type="submit">Delete</button>
         <a asp-controller="Contributor" asp-action="Edit" asp-route-id="@Model.Id"><button class="btn btn-info">Edit</button></a>
-        </p>
+     
         </form>
-
+        </p>
         @if(Model.Listings != null) foreach (Listing listing in Model.Listings)
         {
             <hr />

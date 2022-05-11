@@ -21,19 +21,20 @@
     <h2>@Model.Amount</h2>
     <h3>@Model.Description</h3>
     <hr/>
-    if (signInManager.IsSignedIn(User))
+
+    @if (signInManager.IsSignedIn(User))
     {
         var userId = int.Parse(userManager.GetUserId(User));
 
         if (contributorService.GetByConditions(c => c.UserId == userId).Result.FirstOrDefault() != null &&
         (await contributorService.GetByUserId(userId)).Id == @Model.ContributorId)
         {
-            
-            <a asp-controller="Listing" asp-action="Edit" asp-route-id="@Model.Id"><button class="w-50 btn btn-lg btn-warning">Edit</button></a><p></p>
-            <form asp-controller="Listing" asp-action="Delete" asp-route-id="@Model.Id" method="post">
+            <a asp-controller="Listing" asp-action="DetailsEdit" asp-route-id="@Model.Id"><button class="w-50 btn btn-lg btn-warning">Edit</button></a><p></p>
+            <form asp-controller="Listing" asp-action="DetailsDelete" asp-route-id="@Model.Id" method="post">
                 <button class="w-50 btn btn-lg btn-danger" type="submit">Delete</button><p></p>
             </form>
             <a asp-controller="Listing" asp-action="AddPhoto" asp-route-id="@Model.Id"><button class="w-50 btn btn-lg btn-dark">Add Photo</button></a><p></p>
+            <a asp-controller="Listing" asp-action="Index"><button class="btn btn-outline-info">My Listings</button></a>
         }
         else if (!await listingService.IsBookedByUser(userId, Model.Id))
         {
@@ -47,7 +48,6 @@
                 <button class="btn btn-danger" type="submit">Delete Booking</button>
             </form>
         }
-    }
     }
     </div>
     </div>

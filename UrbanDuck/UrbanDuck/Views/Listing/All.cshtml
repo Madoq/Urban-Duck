@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Listing>
 @{
-    <div class="container"> 
+    <a asp-controller="Listing" asp-action="Available">View Only Available</a>
     @foreach(var listing in Model)
     {
         <p></p>
@@ -27,6 +27,4 @@
         </div>
         </a>
     }
-    </div>
-
 }

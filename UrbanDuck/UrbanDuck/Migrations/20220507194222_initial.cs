@@ -303,17 +303,17 @@ namespace UrbanDuck.Migrations
             migrationBuilder.InsertData(
                 table: "Companies",
                 columns: new[] { "Id", "CompanyName", "NipCode" },
-                values: new object[] { 1, "Company 1", 10 });
+                values: new object[] { 1, "Nestle", 10 });
 
             migrationBuilder.InsertData(
                 table: "Companies",
                 columns: new[] { "Id", "CompanyName", "NipCode" },
-                values: new object[] { 2, "Company 2", 20 });
+                values: new object[] { 2, "Unilever", 20 });
 
             migrationBuilder.InsertData(
                 table: "Companies",
                 columns: new[] { "Id", "CompanyName", "NipCode" },
-                values: new object[] { 3, "Company 3", 30 });
+                values: new object[] { 3, "PepsiCo", 30 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Addresses_CompanyId",

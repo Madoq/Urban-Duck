@@ -54,6 +54,8 @@ builder.Services.Configure<FormOptions>(o =>
 
 builder.Logging.AddNLog();
 
+builder.Services.AddMemoryCache();
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())

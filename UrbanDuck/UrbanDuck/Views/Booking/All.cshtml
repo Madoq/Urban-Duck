@@ -8,7 +8,8 @@
     {
         var listing = await listingService.GetById(booking.ListingId);
         <li class="list-group-item">
-        <p>@listing.Title
+        <h1>@listing.Title</h1>
+        <p>
         <a asp-controller="Listing" asp-action="GetById" asp-route-id="@listing.Id"><button class="btn btn-info justify-align-right">Details</button></a>
         <form asp-controller="Booking" asp-action="Delete" asp-route-id="@booking.Id" method="post">
         <button class="btn btn-danger justify-align-right" type="submit">Delete</button></form>

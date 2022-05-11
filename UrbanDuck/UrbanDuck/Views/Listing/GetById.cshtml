@@ -40,7 +40,7 @@
         else if (!await listingService.IsBookedByUser(userId, Model.Id))
         {
             <form asp-controller="Booking" asp-action="Create" asp-route-userId=@userId asp-route-listingId=@Model.Id method="post">
-                <button type="submit">Book Listing</button>      
+                <button class="w-50 btn btn-lg btn-warning" type="submit">Book Listing</button>      
             </form>
         }
         else if (await listingService.IsBookedByUser(userId, Model.Id))

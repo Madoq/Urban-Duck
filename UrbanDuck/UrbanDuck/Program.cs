@@ -41,6 +41,10 @@ builder.Services.AddScoped(typeof(IContributorService), typeof(ContributorServic
 builder.Services.AddScoped(typeof(IListingService), typeof(ListingService));
 builder.Services.AddScoped(typeof(IListingRepository), typeof(ListingRepository));
 
+builder.Services.AddScoped(typeof(IBookingService), typeof(BookingService));
+builder.Services.AddScoped(typeof(IBookingRepository), typeof(BookingRepository));
+
+
 builder.Services.AddSingleton(emailConfig); 
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IEmailSenderService, EmailSender>();

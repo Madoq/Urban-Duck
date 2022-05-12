@@ -26,8 +26,6 @@ namespace UrbanDuck.Controllers
             this.memoryCache = memoryCache;
         }
 
-        // GET: Transaction/AddOrEdit(Insert)
-        // GET: Transaction/AddOrEdit/5(Update)
         public async Task<IActionResult> AddEditMyListings(int id = 0)
         {
             if (id == 0)
@@ -47,21 +45,15 @@ namespace UrbanDuck.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddEditMyListings(int id, [Bind("Id,Title,Price,Amount,ContributorId,photoPath")] Listing model)
         {
-            if (true)//ModelState.IsValid)
+            if (id == 0)
             {
-                //Insert
-                if (id == 0)
-                {
-                    await _listingService.Create(model);
-                }
-                //Update
-                else
-                {
-                    await _listingService.Edit(model);
-                }
-                return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewAll", (await _listingService.GetAll()).ToList()) });
+                await _listingService.Create(model);
             }
-            return Json(new { isValid = false, html = Helper.RenderRazorViewToString(this, "AddEditMyListings", model) });
+            else
+            {
+                await _listingService.Edit(model);
+            }
+            return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewAll", (await _listingService.GetAll()).ToList()) });
         }
 
         public async Task<IActionResult> Index()
@@ -69,10 +61,8 @@ namespace UrbanDuck.Controllers
             var contributor = await _contributorService.GetByUserId(int.Parse(_userManager.GetUserId(User)));
             if (contributor != null) return View(await _listingService.GetByConditions(l => l.ContributorId == contributor.Id));
             return View();
-            //return View(await _listingService.GetAll());
         }
 
-        // POST: Listing/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -80,25 +70,6 @@ namespace UrbanDuck.Controllers
             await _listingService.Delete(id);
             return Json(new { html = Helper.RenderRazorViewToString(this, "_ViewAll", await _listingService.GetAll()) });
         }
-
-        //[HttpGet("Listing/AddEditMyListings")]
-        //public async Task<IActionResult> AddEditMyListings()
-        //{
-        //    return View();
-        //}
-
-        //[HttpGet("Listing/AddEditMyListings/{id:int}")]
-        //public async Task<IActionResult> AddEditMyListings(int id = 0)
-        //{
-        //    var model = await _listingService.GetById(id);
-        //    return View(model);
-        //}
-
-        //[HttpGet("Listing/All")]
-        //public async Task<IActionResult> All()
-        //{
-        //    return View(await _listingService.GetAll());
-        //}
 
         [HttpGet("Listing/All")]
         public async Task<IActionResult> All()
@@ -118,37 +89,16 @@ namespace UrbanDuck.Controllers
             return View(listings);
         }
 
-
         [HttpGet("Listing/All/Available")]
         public async Task<IActionResult> Available()
         {
             return View(await _listingService.GetByConditions(l => l.Booking.Count < l.Amount));
         }
 
-        //[HttpGet("Listing/MyListings")]
-        //public async Task<IActionResult> MyListings()
-        //{
-        //    return View(await _listingService.GetByConditions(l => l.Contributor.UserId == int.Parse(_userManager.GetUserId(User))));
-        //}
-
-        //[HttpGet("Listing/{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
             return View(await _listingService.GetById(id));
         }
-
-        //[HttpGet("Listing/Create")]
-        //public async Task<IActionResult> Create()
-        //{
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> Create(Listing model)
-        //{
-        //    await _listingService.Create(model);
-        //    return RedirectToAction("GetById", new { id = model.Id });
-        //}
 
         [HttpPost]
         public async Task<IActionResult> DetailsDelete(int id)

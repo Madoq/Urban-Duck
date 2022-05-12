@@ -21,8 +21,9 @@ namespace UrbanDuck.Services
         }
         public async Task<Booking> Create(Booking model)
         {
-            await BookingConfirmationEmail(model);
-            return await(bookingRepository.Create(model));
+            var result = await(bookingRepository.Create(model));
+            await BookingConfirmationEmail(result);
+            return result;
         }
 
         public async Task Delete(int id)
@@ -67,14 +68,15 @@ namespace UrbanDuck.Services
         private async Task BookingConfirmationEmail(Booking booking)
         {
             var user = userManager.FindByIdAsync(booking.UserId.ToString());
-            string userEmail = await userManager.GetEmailAsync(user.Result);
+            var userEmail = await userManager.GetEmailAsync(user.Result);
+            Booking createdBooking = await bookingRepository.GetBookingById(booking.Id);
             string content =
                 $"Here's your booking details: \n" +
-                $"Booking id: {booking.Id}\n" +
-                $"Listing: {booking.Listing.Title}\n" +
-                $"Description: {booking.Listing.Description}\n" +
-                $"Amount: {booking.Listing.Amount}\n" +
-                $"Price: {booking.Listing.Price}";
+                $"Booking id: {createdBooking.Id}\n" +
+                $"Listing: {createdBooking.Listing.Title}\n" +
+                $"Description: {createdBooking.Listing.Description}\n" +
+                $"Amount: {createdBooking.Listing.Amount}\n" +
+                $"Price: {createdBooking.Listing.Price} $";
             var message = new Message(new List<string>() { userEmail }, "Urban Duck booking confirmation", content, null);
             await emailSender.SendEmailAsync(message);
         }

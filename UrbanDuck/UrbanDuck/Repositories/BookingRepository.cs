@@ -15,6 +15,7 @@ namespace UrbanDuck.Repositories
         {
             return await _context.Bookings.Where(b => b.Id == id)
                 .Include(b => b.Listing)
+                .Include(b => b.Listing.Contributor)
                 .FirstOrDefaultAsync();
         }
     }

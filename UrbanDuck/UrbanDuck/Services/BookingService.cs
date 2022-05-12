@@ -58,9 +58,10 @@ namespace UrbanDuck.Services
             var user = userManager.FindByIdAsync(booking.UserId.ToString());
             string userEmail = await userManager.GetEmailAsync(user.Result);
             string content =
-                $"We've canceleed your booking: \n" +
-                $"Booking id: {booking.Id}\n" +
-                $"Listing: {booking.Listing.Title}\n";
+                $"<h2>We've canceled your booking:</h2>" +
+                $"<div>Booking id: {booking.Id}</div>" +
+                $"<div>Listing: {booking.Listing.Title}</div>" + 
+                $"<div>Date and Time: {DateTime.Now}</div>";
             var message = new Message(new List<string>() { userEmail }, "Urban Duck booking cancelation", content, null);
             await emailSender.SendEmailAsync(message);
         }
@@ -71,12 +72,14 @@ namespace UrbanDuck.Services
             var userEmail = await userManager.GetEmailAsync(user.Result);
             Booking createdBooking = await bookingRepository.GetBookingById(booking.Id);
             string content =
-                $"Here's your booking details: \n" +
-                $"Booking id: {createdBooking.Id}\n" +
-                $"Listing: {createdBooking.Listing.Title}\n" +
-                $"Description: {createdBooking.Listing.Description}\n" +
-                $"Amount: {createdBooking.Listing.Amount}\n" +
-                $"Price: {createdBooking.Listing.Price} $";
+                $"<h2>Here are your booking details:</h2>" +
+                $"<div>Booking id: {createdBooking.Id}</div>" +
+                $"<div>Listing: {createdBooking.Listing.Title}</div>" +
+                $"<div>Description: {createdBooking.Listing.Description}</div>" +
+                $"<div>Amount: {createdBooking.Listing.Amount}</div>" +
+                $"<div>Price: {createdBooking.Listing.Price} $</div>" + 
+                $"<div>Contributor: {createdBooking.Listing.Contributor.FirstName} {createdBooking.Listing.Contributor.LastName}</div>" + 
+                $"<div>Date and Time: {DateTime.Now}</div>";
             var message = new Message(new List<string>() { userEmail }, "Urban Duck booking confirmation", content, null);
             await emailSender.SendEmailAsync(message);
         }
